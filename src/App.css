@@ -1,1 +1,11 @@
 /* All the Global CSS code goes here */
+.auth_bg {
+    background-image: url(assets/logo-auth.png);
+    background-size: cover;
+    background-position: right;
+
+}
+.btn-gradient{
+    background: #D0090B;
+    background: linear-gradient(90deg,rgba(208, 9, 11, 0.95) 7%, rgba(0, 0, 254, 0.95) 100%);   
+}
