@@ -18,10 +18,10 @@ import Restrictedark from "./user-blocked-dark.png";
 import revenue from "./revenue-light.png";
 import revenuedark from "./revenue-dark.png";
 
-import reports from "./report-light.png";
-import reportsdark from "./report-dark.png";
-import profilelight from "./profile-light.png";
-import profiledark from "./profile-dark.png";
+import reports from "./Report-light.png";
+import reportsdark from "./Report-dark.png";
+import profilelight from "./Profile-light.png";
+import profiledark from "./Profile-dark.png";
 
 import notifications from "./notification-light.png";
 import notificationsdark from "./notification-dark.png";
