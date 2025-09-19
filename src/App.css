@@ -2,10 +2,15 @@
 .auth_bg {
     background-image: url(assets/logo-auth.png);
     background-size: cover;
-    background-position: right;
+    background-position: center;
 
 }
 .btn-gradient{
     background: #D0090B;
     background: linear-gradient(90deg,rgba(208, 9, 11, 0.95) 7%, rgba(0, 0, 254, 0.95) 100%);   
 }
+.gradient-border {
+   
+    border: 1px solid transparent; /* thickness */
+    border-image: linear-gradient(90deg, #505050, #1F1F1F) 3; /* from-indigo-500 to-pink-500 */
+  }

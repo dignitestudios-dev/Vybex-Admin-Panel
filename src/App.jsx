@@ -1,35 +1,53 @@
 import { Route, Routes } from "react-router";
 import "./App.css";
 import DashboardLayout from "./layouts/DashboardLayout";
-import DummyHome from "./pages/app/DummyHome";
-import Login from "./pages/authentication/Login";
+
 import AuthLayout from "./layouts/AuthLayout";
+import { authRoutes } from "./routes/authentication/AutheticationRoutes";
+import { pageRoutes } from "./routes/app/PageRoutes";
+
+import { Navigate } from "react-router";
 
 function App() {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <div className="text-7xl">
-            Project Template || Please read readme file
-          </div>
-        }
-      />
+    {/* Protected Routes */}
+    <Route
+      path="/"
+      element={
+     
+          <DashboardLayout />
+     
+      }
+    >
+      {pageRoutes.map((route, index) => (
+        <Route
+          key={index}
+          path={route.url}
+          element={<route.page />}
+        />
+      ))}
+      {/* Optional default redirect for "/" */}
+      <Route index element={<Navigate to="/dashboard" replace />} />
+    </Route>
 
-      <Route path="app" element={<DashboardLayout />}>
-        <Route path="dashboard" element={<DummyHome />} />
-      </Route>
+    {/* Authentication Routes */}
+    <Route path="auth" element={<AuthLayout />}>
+      {authRoutes.map((route, index) => (
+        <Route
+          key={index}
+          path={route.url}
+          element={<route.page />}
+        />
+      ))}
+    </Route>
 
-      <Route path="auth" element={<AuthLayout />}>
-        <Route path="login" element={<Login />} />
-      </Route>
-
-      <Route
-        path="*"
-        element={<div className="text-7xl">Page Not Found</div>}
-      />
-    </Routes>
+    {/* Catch-all Not Found */}
+    <Route
+      path="*"
+      element={<div className="text-7xl">Page Not Found</div>}
+    />
+  </Routes>
   );
 }
 

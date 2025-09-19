@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { useLogin } from "../../hooks/api/Post";
 import { processLogin } from "../../lib/utils";
 import { useFormik } from "formik";
-import { loginValues } from "../../init/authentication/dummyLoginValues";
-import { signInSchema } from "../../schema/authentication/dummyLoginSchema";
+
 import { NavLink, useNavigate } from "react-router";
 import { FiLoader } from "react-icons/fi";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { loginImg, Logo } from "../../assets/export";
+import { loginImg } from "../../assets/export";
+import { loginValues } from "../../init/authentication/dummyLoginValues";
+import { signInSchema } from "../../schema/authentication/authenticationSchema";
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const { loading, postData } = useLogin();
+
+  const navigate = useNavigate();
 
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
@@ -37,7 +40,7 @@ const Login = () => {
     <div className="w-[599px] h-[650px] flex flex-col items-center  justify-center  gap-10  rounded-[19px] border-[0.8px] bg-[#000000] ">
       <img src={loginImg} alt="orange_logo" className="w-[148.4px] " />
       <div className="w-auto flex flex-col  justify-center items-center gap-1 ">
-        <h2 className="text-[32px] font-[600] text-white">log in As Sub Admin</h2>
+        <h2 className="text-[32px] font-[600] text-white">login As Sub Admin</h2>
         <p className="text-[13px] font-[400] text-center  text-[#FFFFFF]">
         Welcome back! Enter your details to login
         </p>
@@ -47,6 +50,7 @@ const Login = () => {
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit(e);
+        
         }}
         className="w-full md:w-[393px]  flex flex-col justify-start items-start gap-10"
       >
@@ -109,6 +113,7 @@ const Login = () => {
 
         <button
           type="submit"
+          onClick={() => navigate("/dashboard")}
           className="w-full h-[49px] rounded-[100px] btn-gradient text-white flex gap-2 items-center justify-center text-md font-medium"
         >
           <span>Log In</span>
@@ -118,12 +123,9 @@ const Login = () => {
        
       </form>
       <div className="w-full -mt-1  flex items-center justify-center">
-          <NavLink
-            to={"/forgot-password"}
-            className="text-white hover:no-underline  text-[16px] font-[600] leading-[20.4px]"
-          >
-            Forgot Password?
-          </NavLink>
+          <button onClick={() => navigate("/auth/forgotpassword")} className="text-white hover:no-underline  text-[16px] font-[600] leading-[20.4px]">Forgot Password?</button>
+            
+         
         </div>
     </div>
   );

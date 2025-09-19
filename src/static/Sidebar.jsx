@@ -1,17 +1,56 @@
+import {
+  home,
+  homelight,
+  notifications,
+  notificationsdark,
+  profiledark,
+  profilelight,
+  reports,
+  reportsdark,
+  Restricted,
+  Restrictedark,
+  revenue,
+  revenuedark,
+} from "../assets/export";
+
 export const sidebarData = [
   {
-    title: "Dashboard",
-    // icon: "home", Use this if you want to add icons
-    link: "/app/dashboard",
+    title: "Home",
+    iconlight: homelight,
+    icondark: home,
+    link: "/dashboard",
   },
   {
     title: "Users",
-    // icon: "home", Use this if you want to add icons
-    link: "/app/users",
+    iconlight: profilelight,
+    icondark: profiledark,
+
+    link: "/users",
   },
   {
-    title: "Cleaners",
-    // icon: "home", Use this if you want to add icons
-    link: "/app/cleaners",
+    title: "revenue",
+    iconlight: revenue,
+    icondark: revenuedark,
+    link: "/revenue",
+  },
+  {
+    title: "Reports",
+    iconlight: reports,
+
+    icondark: reportsdark,
+    link: "/reports",
+  },
+  {
+    title: "Restricted",
+    iconlight: Restricted,
+    icondark: Restrictedark,
+    link: "/restricted",
+  },
+  {
+    title: "Notifications",
+    iconlight: notifications,
+
+    icondark: notificationsdark,
+    link: "/notification",
   },
 ];
