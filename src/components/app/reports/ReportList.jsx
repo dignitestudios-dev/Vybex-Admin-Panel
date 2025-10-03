@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { profilelight } from '../../../assets/export';
 import { VscKebabVertical } from "react-icons/vsc";
-const ReportList = () => {
-    
+import { dateFormate } from '../../../lib/helpers';
+const ReportList = ({reports}) => {
+    console.log(reports,"reports");
 const sampleUsers = [
     {
         id: 1,
@@ -36,14 +37,14 @@ const sampleUsers = [
          <div className="flex-[3]">Name</div>
          <div className="flex-[3]">Reported user</div>
          <div className="flex-[3]">Reason</div>
-         <div className="flex-[2]">Report on</div>
+         <div className="flex-[2]">Status</div>
          <div className="flex-[2] ">Date</div>
          <div className="flex-[2] flex justify-end items-end">Action</div>
        </div>
  
        {/* Rows */}
        <div className="mt-2 divide-y divide-[#2E2E2E]">
-         {sampleUsers.map((u, idx) => (
+         {reports?.map((u, idx) => (
            <div
              key={u.id ?? idx}
              className="flex items-center text-white/90 px-2 md:px-4 py-3 md:py-4 relative"
@@ -52,32 +53,33 @@ const sampleUsers = [
  
              <div className="flex-[3] flex items-center gap-3 min-w-0">
                <img
-                 src={profilelight}
-                 alt={u.name}
+                 src={u?.reportedByData?.profilePicture}
+                 alt={u?.reportedByData?.name}
                  className="w-8 h-8 md:w-9 md:h-9 rounded-full object-cover"
                />
-               <div className="truncate text-sm md:text-[15px] font-[500]">{u.name}</div>
+               <div className="truncate text-sm md:text-[15px] font-[500]">{u?.reportedByData?.username || "unknown"}</div>
              </div>
  
              <div className="flex-[3] flex items-center gap-3 min-w-0">
                <img
-                 src={profilelight}
-                 alt={u.name}
+                 src={u?.reportedUserData?.profilePicture}
+                 alt={u?.reportedUserData?.name}
                  className="w-8 h-8 md:w-9 md:h-9 rounded-full object-cover"
                />
-               <div className="truncate text-sm md:text-[15px] font-[500]">{u.name}</div>
+               <div className="truncate text-sm md:text-[15px] font-[500]">{u?.reportedUserData?.name || "unknown"}</div>
              </div>
  
              <div className="flex-[3]  truncate">
-               {u.reason}
+               {u.reason || "--"}
              </div>
  
              <div className="flex-[2]  truncate">
-               {u.reporton}
+               {u.status
+               }
              </div>
  
              <div className="flex-[2] ">
-               {u.date}
+               {dateFormate(u.createdAt)}
              </div>
  
              <div className="flex-[2] flex justify-end   ">
@@ -93,7 +95,7 @@ const sampleUsers = [
               {showDetails === idx && (
                 <div onClick={() => setShowDetails(null)} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
        <div className=" flex flex-col gap-4 items-start bg-[#111111]  p-3 rounded-[15px] absolute right-10 top-36 border-[#2E2E2E] border-[1px]">
-<button className=" text-white ">Delete Reported Post</button>
+
 <button className=" text-white  ">Restrict User</button>
        </div>
        </div>

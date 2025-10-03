@@ -28,10 +28,10 @@ export default function ChangePassword() {
         try {
           setloading(true)
           const data = {                    
-            newPassword: values.password,
+            password: values.password,
           };
       
-          const response = await axios.post("auth/reset-password", data);
+          const response = await axios.post("/auth/updatePassword", data);
       
           if (response.status === 200) {
         
@@ -59,6 +59,7 @@ export default function ChangePassword() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              handleSubmit();
            
               
             }}
@@ -136,7 +137,7 @@ export default function ChangePassword() {
     
             <button
               type="submit"
-              onClick={() => setUpdatePasswordSuccessfully(true)}
+             
               className="w-full h-[49px] rounded-[100px] btn-gradient text-white flex gap-2 items-center justify-center text-md font-medium"
             >
               <span>Reset Password</span>

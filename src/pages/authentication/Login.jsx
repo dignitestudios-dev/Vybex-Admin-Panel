@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLogin } from "../../hooks/api/Post";
 import { processLogin } from "../../lib/utils";
 import { useFormik } from "formik";
@@ -9,14 +9,19 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { loginImg } from "../../assets/export";
 import { loginValues } from "../../init/authentication/dummyLoginValues";
 import { signInSchema } from "../../schema/authentication/authenticationSchema";
+import axios from "../../axios";
+import { ErrorToast } from "../../components/global/Toaster";
+import { AppContext } from "../../context/AppContext";
+
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const { loading, postData } = useLogin();
+ 
 
   const navigate = useNavigate();
-
+  const { handleLogin } = useContext(AppContext);
+const [loading, setloading] = useState(false);
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: loginValues,
@@ -24,15 +29,28 @@ const Login = () => {
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values, action) => {
-        const data = {
-          email: values?.email,
-          password: values?.password,
-        };
-        postData("/admin/login", false, null, data, processLogin);
-
-        // Use the loading state to show loading spinner
-        // Use the response if you want to perform any specific functionality
-        // Otherwise you can just pass a callback that will process everything
+        try {
+          setloading(true)
+          const response = await axios.post("/auth/signIn", {
+            emailOrUsername: values.email,
+            password: values.password,
+            role: "admin",
+          });
+          
+          if (response?.status === 200) {
+            handleLogin(response?.data)
+            console.log(response,"response")
+            
+            navigate("/dashboard");
+           
+          }
+        } catch (err) {
+          ErrorToast(
+            err.response?.data?.message || "Login failed. Please try again."
+          );
+        } finally {
+          setloading(false);
+        }
       },
     });
 
@@ -63,7 +81,7 @@ const Login = () => {
             value={values.email}
             onChange={handleChange}
             onBlur={handleBlur}
-            className={`w-full h-[49px] border-[0.8px]  outline-none bg-[#000000]  rounded-t-[12px] placeholder:text-[#959393] text-[#262626] px-3 text-[16px] font-normal leading-[20.4px] ${
+            className={`w-full h-[49px] border-[0.8px]  outline-none bg-[#000000] text-white  rounded-t-[12px] placeholder:text-[#959393]  px-3 text-[16px] font-normal leading-[20.4px] ${
               errors?.email && touched?.email
                 ? "border-red-500"
                 : "border-[#D9D9D9]"
@@ -90,7 +108,7 @@ const Login = () => {
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-[90%] h-full  bg-transparent rounded-b-[12px] placeholder:text-[#959393] outline-none text-[#262626] px-3 text-[16px] font-normal leading-[20.4px]"
+              className="w-[90%] h-full  bg-transparent rounded-b-[12px] placeholder:text-[#959393] outline-none text-white px-3 text-[16px] font-normal leading-[20.4px]"
               placeholder="Password"
             />
             <button
@@ -113,7 +131,7 @@ const Login = () => {
 
         <button
           type="submit"
-          onClick={() => navigate("/dashboard")}
+          
           className="w-full h-[49px] rounded-[100px] btn-gradient text-white flex gap-2 items-center justify-center text-md font-medium"
         >
           <span>Log In</span>

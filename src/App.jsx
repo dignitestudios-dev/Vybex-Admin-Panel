@@ -7,6 +7,11 @@ import { authRoutes } from "./routes/authentication/AutheticationRoutes";
 import { pageRoutes } from "./routes/app/PageRoutes";
 
 import { Navigate } from "react-router";
+import Cookies from "js-cookie";
+function ProtectedRoute({ children }) {
+  const token = Cookies.get("token");
+  return token ? children : <Navigate to="/auth/login" replace />;
+}
 
 function App() {
   return (
@@ -15,8 +20,9 @@ function App() {
     <Route
       path="/"
       element={
-     
+      <ProtectedRoute>
           <DashboardLayout />
+      </ProtectedRoute>
      
       }
     >

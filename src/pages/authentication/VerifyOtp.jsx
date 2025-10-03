@@ -35,7 +35,7 @@ export default function VerifyOtp() {
 
     try {
       setLoading(true);
-      const response = await axios.post('/auth/verify-reset-otp',{
+      const response = await axios.post('/auth/verifyOTP',{
         email: email,
         otp: otpString,
       });
@@ -43,10 +43,10 @@ export default function VerifyOtp() {
       if (response.data.success) {
         console.log(response?.data.data.token);
         Cookies.set("token", response?.data?.data?.token);
-        SuccessToast('OTP verified successfully');
+        SuccessToast(response?.data?.message ||"OTP verified successfully");
         navigate('/auth/changePassword');
       } else {
-        ErrorToast('Invalid OTP. Please try again');
+        ErrorToast(response?.data?.message || 'Invalid OTP. Please try again');
       }
     } catch (error) {
       ErrorToast(error.response?.data?.message || 'Failed to verify OTP');
@@ -137,7 +137,7 @@ export default function VerifyOtp() {
 
         <form onSubmit={(e)=>{
           e.preventDefault();
-         navigate("/auth/changePassword");
+          verifyOtp();
         }} className="w-full md:w-[393px]  flex flex-col justify-center items-center gap-7">
           <div className="w-full h-auto flex justify-center items-center gap-4">
             {otp.map((_, index) => {

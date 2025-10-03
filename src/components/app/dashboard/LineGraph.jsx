@@ -23,7 +23,7 @@ ChartJS.register(
   Legend
 );
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels = ["January", "February", "March", "April", "May", "June", "July" , "August", "September", "October", "November", "December"];
 
 const generateRandomData = (min, max, length) => {
   return Array.from(
@@ -38,30 +38,27 @@ const createGradient = (ctx, color1, color2) => {
   gradient.addColorStop(0.38, color2);
   return gradient;
 };
+export function LineGraph({ lineGraphData, setStartDate, setEndDate }) {
+  console.log(lineGraphData, "lineGraphData");
 
-export function LineGraph({ dGraphData, year, setYear }) {
+  // Convert your object array into labels and data
+  // const labels = lineGraphData.map((item) => item.date); // x-axis = dates
+  // const counts = lineGraphData.map((item) => item.count); // y-axis = counts
+  const counts = lineGraphData?.map((item) => item.count) || [];
   const data = {
     labels,
     datasets: [
       {
-        label: "Selected Year",
-
-        borderColor: "rgba(199, 26, 30, 1)", // line color
-        pointBackgroundColor: "rgba(199, 26, 30, 1)", // points ka color
-        data: [12, 19, 7, 15, 22, 30, 18], // <---- yahan tumhara actual data
-        tension: 0.4,
-        fill: true,
-      },
-      {
         label: "Previous Year",
         borderColor: "rgba(0, 0, 254, 1)", // line color
-        pointBackgroundColor: "rgba(0, 0, 254, 1)", // points ka color
-        data: [12, 19, 7, 15, 22, 30, 18], // <---- yahan tumhara actual data
+        pointBackgroundColor: "rgba(0, 0, 254, 1)", // points color
+        data: counts, // 👈 only numbers
         tension: 0.4,
         fill: true,
       },
     ],
   };
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -69,14 +66,14 @@ export function LineGraph({ dGraphData, year, setYear }) {
     scales: {
       x: {
         ticks: {
-          color: "#ffffff", // 👈 months white
+          color: "#ffffff",
         },
       },
       y: {
         stacked: true,
         beginAtZero: true,
         ticks: {
-          color: "#ffffff", // 👈 Y axis numbers bhi white kar diye
+          color: "#ffffff",
         },
       },
     },
@@ -86,60 +83,60 @@ export function LineGraph({ dGraphData, year, setYear }) {
         align: "start",
         labels: {
           usePointStyle: true,
-          color: "#ffffff", // 👈 legend labels bhi white
+          color: "#ffffff",
         },
       },
       title: {
         display: true,
-        color: "#ffffff", // 👈 agar title use ho raha ho
+        color: "#ffffff",
       },
     },
   };
 
   return (
-    <div className="bg-[#000000] mt-3 backdrop-blur-[50px]   p-5 h-full relative rounded-[15px]  ">
-      <div className="flex justify-between items-center  ">
+    <div className="bg-[#000000] mt-3 backdrop-blur-[50px] p-5 h-full relative rounded-[15px]">
+      <div className="flex justify-between items-center">
         <p className="text-white text-[23.26px] font-[600]">
           Active Users Overview
         </p>
-        <div className="flex items-center gap-2 ">
-          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-[10px] ">
-            <button className="text-white text-[11.63px] font-[500] flex items-center justify-between w-[148px] h-[34px] bg-[#000000]  rounded-[10px] p-2 ">
-              Dec, 15 2025{" "}
+        <div className="flex items-center gap-2">
+          {/* Start Date */}
+          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-[10px]">
+            <div className="text-white text-[11.63px] font-[500] flex items-center justify-between w-[148px] h-[34px] bg-[#000000] rounded-[10px] p-2">
+              <input
+                type="date"
+                className="bg-transparent"
+                onChange={(e) => setStartDate(e.target.value)}
+              />
               <span>
                 <img src={calender} alt="" className="w-4" />
               </span>
-            </button>
+            </div>
           </div>
-          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-[10px] ">
-            <button className="text-white text-[11.63px] font-[500] flex items-center justify-between w-[148px] h-[34px] bg-[#000000]  rounded-[10px] p-2 ">
-              Dec, 15 2025{" "}
+
+          {/* End Date */}
+          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-[10px]">
+            <div className="text-white text-[11.63px] font-[500] flex items-center justify-between w-[148px] h-[34px] bg-[#000000] rounded-[10px] p-2">
+              <input
+                type="date"
+                className="bg-transparent"
+                onChange={(e) => setEndDate(e.target.value)}
+              />
               <span>
                 <img src={calender} alt="" className="w-4" />
               </span>
-            </button>
+            </div>
           </div>
         </div>
       </div>
 
+      {/* Graph */}
       <div className="w-full h-[350px]">
-        <Line
-          options={options}
-          data={data}
-          plugins={[
-            {
-              id: "increase-legend-spacing",
-              beforeInit(chart) {
-                const originalFit = chart.legend.fit;
-                chart.legend.fit = function () {
-                  originalFit.bind(chart.legend)();
-                  this.height += 40;
-                };
-              },
-            },
-          ]}
-        />
+        <Line options={options} data={data} />
       </div>
     </div>
   );
 }
+
+
+

@@ -8,7 +8,8 @@ import { loginImg, Verification } from "../../assets/export";
 import { ForgotSchema } from "../../schema/authentication/authenticationSchema";
 import { forgotValues } from "../../init/authentication/dummyLoginValues";
 import { IoArrowBackSharp } from "react-icons/io5";
-
+import { ErrorToast, SuccessToast } from "../../components/global/Toaster";
+import axios from "../../axios";
 
 
 
@@ -23,10 +24,19 @@ const ForgotPassword = () => {
           validateOnChange: true,
           validateOnBlur: true,
           onSubmit: async (values, action) => {
-            const data = {
-              email: values?.email,
-              password: values?.password,
-            };
+            setLoading(true);
+            try {
+              const response = await axios.post(`/auth/forgot`, {email: values.email});
+              if(response?.status === 200){
+                sessionStorage.setItem("email", values.email);
+                SuccessToast(response?.data?.message ||"OTP sent successfully");
+                navigate("/auth/verifyOtp");
+              }
+            } catch (error) {
+                ErrorToast(error?.response?.data?.message || "Something went wrong");
+            }finally{
+              setLoading(false);
+            }
         
     
             
@@ -49,7 +59,7 @@ return(
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit(e);
-        navigate("/auth/verifyOtp");
+        
       }}
       className="w-full md:w-[393px]  flex flex-col justify-start items-start gap-10"
     >
@@ -62,7 +72,7 @@ return(
           value={values.email}
           onChange={handleChange}
           onBlur={handleBlur}
-          className={`w-full h-[49px] border-[0.8px]  outline-none bg-[#000000]  rounded-[50px] placeholder:text-[#959393] text-[#262626] px-3 text-[16px] font-normal leading-[20.4px] ${
+          className={`w-full h-[49px] border-[0.8px]  outline-none bg-[#000000]  rounded-[50px] placeholder:text-[#959393] text-[#FFFFFF] px-3 text-[16px] font-normal leading-[20.4px] ${
             errors?.email && touched?.email
               ? "border-red-500"
               : "border-[#D9D9D9]"

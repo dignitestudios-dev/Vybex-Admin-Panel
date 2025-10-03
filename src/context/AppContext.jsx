@@ -5,12 +5,46 @@ import { useEffect } from "react";
 
 import Cookies from "js-cookie";
 import axios from "../axios";
+import { useNavigate } from "react-router";
 
 export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
- 
+  
+  const navigate = useNavigate();
   const [updatePasswordSuccessfully, setUpdatePasswordSuccessfully] =useState(false);
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(() => {
+    const cookieData = Cookies.get("user");
+    return cookieData ? (cookieData) : null;
+  });
+
+
+
+  const handleLogin = (data) => {
+    Cookies.set("token", data?.data?.token);
+    Cookies.set("user", JSON.stringify(data?.data?.user ));
+    setToken(data?.data?.token);
+    setUser(data?.data?.user);
+ 
+    console.log(data,"data")
+
+  };
+   
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post("/auth/logout");
+      Cookies.remove("token");
+      Cookies.remove("user");
+      setToken(null);
+      setUser(null);
+      navigate("/auth/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
+  
   // Send fcm to backend:
   // const fetchToken = async () => {
   //   const token = await getFCMToken();
@@ -56,6 +90,12 @@ export const AppContextProvider = ({ children }) => {
         dummyVar,
         setUpdatePasswordSuccessfully,
         updatePasswordSuccessfully,
+        token,
+        setToken,
+        handleLogin,
+        user,
+        handleLogout,
+        setUser,
       }}
     >
       {children}

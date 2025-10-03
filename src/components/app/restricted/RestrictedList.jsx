@@ -2,30 +2,30 @@ import React from 'react'
 import { profiledark } from '../../../assets/export'
 
 export default function RestrictedList() {
-    const sampleUsers = [
-        {
-          id: 1,
-          User: 'John Doe',
-          Reason: 'johndoe@gmail.com',
-          Reporton: '@Padberg53',
-          Dates: 'July-4-1998',
-        },
-        {
-          id: 2,
-          User: 'Jane Smith',
-          Reason: 'jane.smith@gmail.com',
-          Reporton: '@jsmith',
-          Dates: 'Sep-9-1996',
-        },
-        {
-          id: 3,
-          User: 'Alex Carter',
-          Reason: 'alex.carter@gmail.com',
-          Reporton: '@acarter',
-          Dates: 'Jan-21-1993',
-       
-        },
-      ]
+      const sampleUsers = [
+          {
+            id: 1,
+            User: 'John Doe',
+            Reason: 'johndoe@gmail.com',
+            Reporton: '@Padberg53',
+            Dates: 'July-4-1998',
+          },
+          {
+            id: 2,
+            User: 'Jane Smith',
+            Reason: 'jane.smith@gmail.com',
+            Reporton: '@jsmith',
+            Dates: 'Sep-9-1996',
+          },
+          {
+            id: 3,
+            User: 'Alex Carter',
+            Reason: 'alex.carter@gmail.com',
+            Reporton: '@acarter',
+            Dates: 'Jan-21-1993',
+        
+          },
+        ]
     return (
         <div className="bg-[#000000] mt-3 backdrop-blur-[50px] p-4 md:p-5 rounded-[15px]">
              {/* Header */}

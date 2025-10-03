@@ -20,9 +20,11 @@ ChartJS.register(
   Title
 );
 
-const HorizontalBarChart = ({ eGraphData }) => {
+const HorizontalBarChart = ({ horizontalData }) => {
  
-
+  const paidValue = horizontalData?.count?.paid || 0;
+  const freeValue = horizontalData?.count?.free || 0;
+  
   const data = {
     labels: ["Paid Live","Free Live",], // 2 alag categories
     datasets: [
@@ -30,7 +32,7 @@ const HorizontalBarChart = ({ eGraphData }) => {
 
       {
         label: "Paid Live",
-        data: [null, 1], // sirf doosri category ke liye value
+        data: [paidValue,null], // sirf doosri category ke liye value
         backgroundColor: (context) => {
           const { ctx, chartArea } = context.chart;
           if (!chartArea) return null;
@@ -52,7 +54,7 @@ const HorizontalBarChart = ({ eGraphData }) => {
 
       {
         label: "Free Live",
-        data: [1, null], // sirf pehle category ke liye value
+        data: [null,freeValue], // sirf pehle category ke liye value
         backgroundColor: "rgba(0,0,254,1)",
         borderRadius: { topRight: 15, bottomRight: 15 }, // sirf right side round
         barThickness: 40,
