@@ -1,6 +1,7 @@
 import DashBoard from "../../pages/app/dashboard/DashBoard";
 import Notification from "../../pages/app/notification/Notification";
 import Reports from "../../pages/app/reports/Reports";
+import UserRequest from "../../pages/app/request/UserReqest";
 import Restricted from "../../pages/app/restricted/Restricted";
 import Revenue from "../../pages/app/revenue/Revenue";
 import UserDetail from "../../pages/app/user/UserDetail";
@@ -43,5 +44,10 @@ export const pageRoutes = [
         url: "notification",
         page: Notification,
         name: "Notification"
+    },
+    {
+        url: "/user-request",
+        page: UserRequest,
+        name: "User Request"
     },
 ];

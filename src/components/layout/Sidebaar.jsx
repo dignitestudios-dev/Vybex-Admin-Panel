@@ -14,9 +14,9 @@ const Sidebaar = () => {
   return (
     <div className="w-full h-full overflow-y-auto px-3 py-4 flex flex-col gap-20 justify-start items-start">
       <div className=" w-full  flex items-center justify-center">
-    <img src={logo} alt="logo" className="w-[117px] h-[100px]" />
+    <img src={logo} alt="logo" className="w-[117px] h-[90px]" />
     </div>
-    <div className="w-full flex flex-col px-8 gap-8   "> 
+    <div className="w-full flex flex-col px-8 gap-6   "> 
       {sidebarData?.map((sidebar) => {
         return (
           <NavLink

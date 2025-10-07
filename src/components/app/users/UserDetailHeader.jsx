@@ -14,7 +14,7 @@ export const UserDetailHeader = ({userDetail,blockUser}) => {
                       
                        <div className=" bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-full absolute -bottom-4 left-0">
                        <div className=" p-1  bg-[#000000]  rounded-full flex items-center justify-center gap-1">
-                         <img src={userDetail.profilePicture} alt="" className="w-[24px] h-[24px]"/>
+                         <img src={userDetail.profilePicture} alt="" className="w-[24px] h-[24px] rounded-full"/>
                             <span className="text-white text-[14px] font-[600] space-x-2">1550 <span className="text-[12px] font-[400] text-[#565656]">Coins</span></span>
                         </div>
                        </div>

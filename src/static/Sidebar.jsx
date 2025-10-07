@@ -53,4 +53,11 @@ export const sidebarData = [
     icondark: notificationsdark,
     link: "/notification",
   },
+  {
+    title: "User Request",
+    iconlight: notifications,
+
+    icondark: notificationsdark,
+    link: "/user-request",
+  },
 ];

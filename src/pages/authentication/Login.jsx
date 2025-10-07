@@ -58,7 +58,7 @@ const [loading, setloading] = useState(false);
     <div className="w-[599px] h-[650px] flex flex-col items-center  justify-center  gap-10  rounded-[19px] border-[0.8px] bg-[#000000] ">
       <img src={loginImg} alt="orange_logo" className="w-[148.4px] " />
       <div className="w-auto flex flex-col  justify-center items-center gap-1 ">
-        <h2 className="text-[32px] font-[600] text-white">login As Sub Admin</h2>
+        <h2 className="text-[32px] font-[600] text-white">Login Admin</h2>
         <p className="text-[13px] font-[400] text-center  text-[#FFFFFF]">
         Welcome back! Enter your details to login
         </p>
