@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { profilelight } from '../../../assets/export';
 import { VscKebabVertical } from "react-icons/vsc";
 import { dateFormate } from '../../../lib/helpers';
-const ReportList = ({reports}) => {
+const ReportList = ({reports , blockUser}) => {
     console.log(reports,"reports");
 const sampleUsers = [
     {
@@ -37,7 +37,7 @@ const sampleUsers = [
          <div className="flex-[3]">Name</div>
          <div className="flex-[3]">Reported user</div>
          <div className="flex-[3]">Reason</div>
-         <div className="flex-[2]">Status</div>
+         <div className="flex-[2]">Report on</div>
          <div className="flex-[2] ">Date</div>
          <div className="flex-[2] flex justify-end items-end">Action</div>
        </div>
@@ -74,7 +74,7 @@ const sampleUsers = [
              </div>
  
              <div className="flex-[2]  truncate">
-               {u.status
+               {u.type
                }
              </div>
  
@@ -96,7 +96,7 @@ const sampleUsers = [
                 <div onClick={() => setShowDetails(null)} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
        <div className=" flex flex-col gap-4 items-start bg-[#111111]  p-3 rounded-[15px] absolute right-10 top-36 border-[#2E2E2E] border-[1px]">
 
-<button className=" text-white  ">Restrict User</button>
+<button onClick={() => blockUser(u?._id)} className=" text-white  ">Restrict User</button>
        </div>
        </div>
        )}

@@ -1,31 +1,9 @@
 import React from 'react'
 import { profiledark } from '../../../assets/export'
+import { dateFormate } from '../../../lib/helpers'
 
-export default function RestrictedList() {
-      const sampleUsers = [
-          {
-            id: 1,
-            User: 'John Doe',
-            Reason: 'johndoe@gmail.com',
-            Reporton: '@Padberg53',
-            Dates: 'July-4-1998',
-          },
-          {
-            id: 2,
-            User: 'Jane Smith',
-            Reason: 'jane.smith@gmail.com',
-            Reporton: '@jsmith',
-            Dates: 'Sep-9-1996',
-          },
-          {
-            id: 3,
-            User: 'Alex Carter',
-            Reason: 'alex.carter@gmail.com',
-            Reporton: '@acarter',
-            Dates: 'Jan-21-1993',
-        
-          },
-        ]
+export default function RestrictedList({restricted , UnblockUser}) {
+     
     return (
         <div className="bg-[#000000] mt-3 backdrop-blur-[50px] p-4 md:p-5 rounded-[15px]">
              {/* Header */}
@@ -41,7 +19,7 @@ export default function RestrictedList() {
        
              {/* Rows */}
              <div className="mt-2 divide-y divide-[#2E2E2E]">
-               {sampleUsers.map((u, idx) => (
+               {restricted.map((u, idx) => (
                  <div
                    key={u.id ?? idx}
                    className="flex items-center text-white text-[14px] font-[400] px-2 md:px-4 py-3 md:py-4"
@@ -50,30 +28,30 @@ export default function RestrictedList() {
        
                    <div className="flex-[1] flex items-center gap-3 min-w-0">
                      <img
-                       src={profiledark}
-                       alt={u.User}
+                       src={u?.reportedUserData?.profilePicture}
+                       alt={u?.reportedUserData?.name}
                        className="w-8 h-8 md:w-9 md:h-9 rounded-full object-cover"
                      />
-                     <div className="truncate ">{u.User}</div>
+                     <div className="truncate ">{u?.reportedUserData?.name}</div>
                    </div>
        
                    <div className="flex-[2] truncate ">
-                     {u.Reason}
+                     {u?.reason || "No reason"}
                    </div>
        
                    <div className="flex-[1]  truncate">
-                     {u.Reporton}
+                     {u.type}
                    </div>
        
                    <div className="flex-[1]  truncate">
-                     {u.Dates}
+                     {dateFormate(u.createdAt)}
                    </div>
        
                  
        
                    <div className=" flex-[1] ">
                      <button
-                       onClick={() => onView?.(u)}
+                       onClick={() => UnblockUser?.(u.reportedUserData._id)}
                        className="text-white text-[14px] font-[400]    px-5 py-3 rounded-[999px]"
                        style={{
                          background:

@@ -28,7 +28,7 @@ export const sidebarData = [
     link: "/users",
   },
   {
-    title: "revenue",
+    title: "Revenue",
     iconlight: revenue,
     icondark: revenuedark,
     link: "/revenue",
@@ -52,5 +52,12 @@ export const sidebarData = [
 
     icondark: notificationsdark,
     link: "/notification",
+  },
+  {
+    title: "Withdraw",
+    iconlight: notifications,
+
+    icondark: notificationsdark,
+    link: "/user-request",
   },
 ];

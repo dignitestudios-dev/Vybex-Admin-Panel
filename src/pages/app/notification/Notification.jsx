@@ -4,13 +4,16 @@ import CreateNotification from "../../../components/app/notification/CreateNotif
 import { useEffect, useState } from "react";
 import axios from "../../../axios";
 import Pagination from "../../../components/global/Pagination";
+import NotificationSkeleton from "../../../components/app/notification/NotificationSkeleton";
 
 export default function Notification() {
     const [showCreateNotification, setShowCreateNotification] = useState(false);
     const [notification, setNotification] = useState([]);
     const [pagnition, setPagnition] = useState({});
     const [pageNo, setPageNo] = useState(1);
+    const [loading , setLoading] = useState(false);
     const getNotification = async () => {
+        setLoading(true);
         try {
             const response = await axios.get(`/admin/notification?page=${pageNo}&limit=10`);
             setNotification(response.data?.data);
@@ -18,12 +21,13 @@ export default function Notification() {
         } catch (error) {
             console.log(error);
         }
+        setLoading(false);
     }
 
     useEffect(() => {
         getNotification();
     }, []);
-    console.log(notification,"notification");
+   
     return (
         <div>
             <div className="flex items-center justify-between">
@@ -34,7 +38,7 @@ export default function Notification() {
                 
             </div>
             </div>
-            <NotificationList notification={notification}/>
+            {loading ? <NotificationSkeleton/> : ( <NotificationList notification={notification}/>)}
             <div className="mt-4 flex justify-end">
             <Pagination pagnition={pagnition} setPageNo={setPageNo} />
             </div>

@@ -1,10 +1,13 @@
 import { IoArrowBackSharp } from "react-icons/io5"
 import { useNavigate } from "react-router"
 import { image } from "../../../assets/export";
+import ReportSuccessModal from "./ReportSuccessModal";
 
-export const UserDetailHeader = ({userDetail,blockUser}) => {
+export const UserDetailHeader = ({userDetail,blockUser , showSuccess , setShowSuccess}) => {
+    console.log(showSuccess,"showSuccess");
     const navigate = useNavigate();
-    console.log(userDetail,"userDetail");
+   
+    
     return (
         <div className="w-full h-full flex items-center justify-between bg-[#000000] p-10 my-4 rounded-[15px]">
             <div className='flex items-center justify-start'>
@@ -14,8 +17,8 @@ export const UserDetailHeader = ({userDetail,blockUser}) => {
                       
                        <div className=" bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-full absolute -bottom-4 left-0">
                        <div className=" p-1  bg-[#000000]  rounded-full flex items-center justify-center gap-1">
-                         <img src={userDetail.profilePicture} alt="" className="w-[24px] h-[24px]"/>
-                            <span className="text-white text-[14px] font-[600] space-x-2">1550 <span className="text-[12px] font-[400] text-[#565656]">Coins</span></span>
+                         <img src={userDetail.profilePicture} alt="" className="w-[24px] h-[24px] rounded-full"/>
+                            <span className="text-white text-[14px] font-[600] space-x-2">{userDetail?.wallet?.coins} <span className="text-[12px] font-[400] text-[#565656]">Coins</span></span>
                         </div>
                        </div>
 
@@ -27,7 +30,7 @@ export const UserDetailHeader = ({userDetail,blockUser}) => {
             </div>
             <div className="flex items-center ">
             <button
-                onClick={blockUser  }
+                onClick={() => blockUser()}
                 className="w-[177px] h-[49px] text-white text-[18px] font-[500] px-4 py-2 rounded-[999px]"
                 style={{
                   background:
@@ -36,6 +39,7 @@ export const UserDetailHeader = ({userDetail,blockUser}) => {
               >
               Restrict  Profile
               </button>   
+            <ReportSuccessModal showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
             </div>
         </div>
     )

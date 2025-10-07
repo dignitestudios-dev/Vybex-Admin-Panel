@@ -4,17 +4,19 @@ import { useState, useEffect } from "react";
 import axios from "../../../axios";
 import { useNavigate } from "react-router";
 import Pagination from "../../../components/global/Pagination";
+import RevenueSkeleton from "../../../components/app/revenue/ReveuneSkeleton";
 const Revenue = () => {
   const [revenue, setRevenue] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pageNo, setPageNo] = useState(1);
+  const [search, setSearch] = useState('');
   const [pagnition, setPagnition] = useState({});
   const navigate = useNavigate();
 
   const getRevenue = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`/admin/revenue?page=${pageNo}&limit=10`);
+      const response = await axios.get(`/admin/revenue?page=${pageNo}&limit=10&search=${search}`);
 
       setRevenue(response?.data?.data);
       setPagnition(response?.data?.pagination);
@@ -39,7 +41,7 @@ const Revenue = () => {
   };
   useEffect(() => {
     getRevenue();
-  }, []);
+  }, [pageNo,search]);
 
   return (
     <div>
@@ -51,7 +53,8 @@ const Revenue = () => {
             <input
               type="text"
               placeholder="Search"
-              className="text-[#565656] bg-transparent"
+              className="text-[#FFFFFF] outline-none bg-transparent"
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
           <div className="">
@@ -61,7 +64,7 @@ const Revenue = () => {
           </div>
         </div>
       </div>
-      <RevenueList revenue={revenue} />
+      {loading ? <RevenueSkeleton/> : ( <RevenueList revenue={revenue} />)}
       <div className="mt-4 flex justify-end">
       <Pagination pagnition={pagnition} setPageNo={setPageNo} />
       </div>

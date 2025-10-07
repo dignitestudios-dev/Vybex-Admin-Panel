@@ -24,7 +24,7 @@ export default function State({ state }) {
               <p className="font-500 text-[16px] text-[#FFFFFF]">
                 Total Revenue
               </p>
-              <p className="font-500 text-[24px] text-[#FFFFFF]">{state?.totallCoinsPurhchased}</p>
+              <p className="font-500 text-[24px] text-[#FFFFFF]">${state?.totallCoinsPurhchased}</p>
             </div>
             <div>
               <img src={Chartcolor} className="w-16" alt="total user" />

@@ -1,7 +1,32 @@
 import { FaInstagram, FaTwitter, FaYoutube, FaTiktok } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
+import { Links } from "react-router";
 
 export default function ProfileCard({userDetail}) {
+ const socialLinksMap = [
+  {
+    name: "Instagram",
+    includes: ["instagram"],
+    icon: <FaInstagram className="text-pink-500" />,
+  },
+  {
+    name: "Twitter X",
+    includes: ["twitter", "x.com"],
+    icon: <FaTwitter className="text-white" />,
+  },
+  {
+    name: "YouTube",
+    includes: ["youtube"],
+    icon: <FaYoutube className="text-red-500" />,
+  },
+  {
+    name: "TikTok",
+    includes: ["tiktok"],
+    icon: <FaTiktok className="text-white" />,
+  },
+];
+
+
   return (
     <div className="bg-black text-white rounded-lg border-[1px] border-[#EAEAEA4D] p-5 w-full ">
       {/* Full Name */}
@@ -53,26 +78,32 @@ export default function ProfileCard({userDetail}) {
       <div className="py-3">
         <p className="text-[16px] font-[500] text-gray-400    mb-2">Social media links</p>
         <div className="flex gap-3">
-          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[0.5px] rounded-full">
-          <a className="flex items-center gap-1 px-3 py-1 bg-[#000000] rounded-full text-sm">
-            <FaInstagram className="text-pink-500" /> Instagram
-          </a>
-          </div>
-          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[0.5px] rounded-full">
-          <a className="flex items-center gap-1 px-3 py-1 bg-[#000000] rounded-full text-sm">
-            <FaTwitter className="text-white" /> Twitter X
-          </a>
-          </div>
-          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[0.5px] rounded-full">
-          <a className="flex items-center gap-1 px-3 py-1 bg-[#000000] rounded-full text-sm">
-            <FaYoutube className="text-red-500" /> YouTube
-          </a>
-          </div>
-          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[0.5px] rounded-full">
-          <a className="flex items-center gap-1 px-3 py-1 bg-[#000000] rounded-full text-sm">
-            <FaTiktok className="text-white" /> TikTok
-          </a>
-          </div>
+   <div className="flex gap-3">
+  {socialLinksMap.map((item) => {
+    const matchedLink = userDetail?.links?.find((l) =>
+      item.includes.some((word) => l.toLowerCase().includes(word))
+    );
+
+    if (!matchedLink) return null;
+
+    return (
+      <div
+        key={item.name}
+        className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[0.5px] rounded-full"
+      >
+        <a
+          href={matchedLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1 px-3 py-1 bg-[#000000] rounded-full text-sm"
+        >
+          {item.icon} {item.name}
+        </a>
+      </div>
+    );
+  })}
+</div>
+
         </div>
       </div>
     </div>

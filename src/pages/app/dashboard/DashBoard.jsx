@@ -40,7 +40,7 @@ import axios from '../../../axios';
         try {
             setLoading(true);
             const response = await axios.get(`/admin/dashboard/livegraph?startDate=01-01-2025&endDate=12-06-2025`);
-            setHorizontalData(response.data?.data);
+            setHorizontalData(response?.data?.data);
             setLoading(false);
         }
         catch (error) {
@@ -53,7 +53,7 @@ import axios from '../../../axios';
             getLineGraphData();
             getHorizontalData();
                 }, [startDate, endDate]);
-                console.log(lineGraphData,"lineGraphData");
+                console.log(horizontalData,"horizontalData")
         return (
             <div className='space-y-5'>
                 <State state={state} />

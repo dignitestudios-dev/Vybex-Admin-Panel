@@ -21,10 +21,11 @@ ChartJS.register(
 );
 
 const HorizontalBarChart = ({ horizontalData }) => {
- 
-  const paidValue = horizontalData?.count?.paid || 0;
-  const freeValue = horizontalData?.count?.free || 0;
-  
+ console.log(horizontalData)
+ const weeklyData = horizontalData?.[0]?.count || { free: 0, paid: 0 }
+  const paidValue = weeklyData.paid;
+  const freeValue = weeklyData.free;
+  console.log(weeklyData)
   const data = {
     labels: ["Paid Live","Free Live",], // 2 alag categories
     datasets: [
@@ -103,14 +104,14 @@ const HorizontalBarChart = ({ horizontalData }) => {
       Bookings
       </h3>
 
-      <div
+      {/* <div
         name=""
         id=""
         className="bg-transparent text-[#ffffff] outline-none absolute top-8 right-7 text-[12px] font-[400]"
       >
         This Week
 
-      </div>
+      </div> */}
 
       <Bar
         data={data}
