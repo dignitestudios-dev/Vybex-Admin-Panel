@@ -94,15 +94,7 @@ export function LineGraph({ lineGraphData, setStartDate, setEndDate }) {
     },
   };
 
-  const dateRef = useRef(null);
-
-  const handleIconClick = () => {
-    if (dateRef.current?.showPicker) {
-      dateRef.current.showPicker();
-    } else {
-      dateRef.current.click();
-    }
-  };
+  
 
   return (
     <div className="bg-[#000000] mt-3 backdrop-blur-[50px] p-5 h-full relative rounded-[15px]">
@@ -111,40 +103,7 @@ export function LineGraph({ lineGraphData, setStartDate, setEndDate }) {
           Active Users Overview
         </p>
 
-        <div className="flex items-center gap-2">
-          {/* Start Date */}
-          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-[10px]">
-            <div className="text-white text-[11.63px] font-[500] flex items-center justify-between w-[148px] h-[34px] bg-[#000000] rounded-[10px] p-2">
-              <label htmlFor="date" className="flex items-center cursor-pointer">
-                <input
-                  ref={dateRef}
-                  name="date"
-                  id="date"
-                  type="date"
-                  className="bg-transparent text-white outline-none"
-                  onChange={(e) => setStartDate(e.target.value)}
-                />
-                <span onClick={handleIconClick}>
-                  <img src={calender} alt="calendar" className="w-4 ml-2 cursor-pointer" />
-                </span>
-              </label>
-            </div>
-          </div>
-
-          {/* End Date */}
-          <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-[10px]">
-            <div className="text-white text-[11.63px] font-[500] flex items-center justify-between w-[148px] h-[34px] bg-[#000000] rounded-[10px] p-2">
-              <input
-                type="date"
-                className="bg-transparent"
-                onChange={(e) => setEndDate(e.target.value)}
-              />
-              <span>
-                <img src={calender} alt="" className="w-4" />
-              </span>
-            </div>
-          </div>
-        </div>
+     
       </div>
 
       {/* Graph */}
