@@ -24,46 +24,39 @@ ChartJS.register(
   Legend
 );
 
-const labels = ["January", "February", "March", "April", "May", "June", "July" , "August", "September", "October", "November", "December"];
+const labels = [
+  "January", "February", "March", "April", "May", "June", 
+  "July", "August", "September", "October", "November", "December"
+];
 
-const generateRandomData = (min, max, length) => {
-  return Array.from(
-    { length },
-    () => Math.floor(Math.random() * (max - min + 1)) + min
-  );
-};
-
-const createGradient = (ctx, color1, color2) => {
-  const gradient = ctx.createLinearGradient(0, 0, 0, 700);
-  gradient.addColorStop(0, color1);
-  gradient.addColorStop(0.38, color2);
-  return gradient;
-};
 export function LineGraph({ lineGraphData, setStartDate, setEndDate }) {
-  console.log(lineGraphData, "lineGraphData");
 
-  // Convert your object array into labels and data
-  // const labels = lineGraphData.map((item) => item.date); // x-axis = dates
-  // const counts = lineGraphData.map((item) => item.count); // y-axis = counts
   const counts = lineGraphData?.map((item) => item.count) || [];
+
   const data = {
     labels,
     datasets: [
       {
         label: "Previous Year",
-        borderColor: "rgba(0, 0, 254, 1)", // line color
-        pointBackgroundColor: "rgba(0, 0, 254, 1)", // points color
-        data: counts, // 👈 only numbers
+        borderColor: "rgba(0, 0, 254, 1)",
+        pointBackgroundColor: "rgba(0, 0, 254, 1)",
+        data: counts,
         tension: 0.4,
         fill: true,
       },
     ],
   };
 
+  // ⭐⭐ FIXED Y-AXIS VALUES (0–40, STEP 5) ⭐⭐
   const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    aspectRatio: 1,
+   responsive: true,
+  maintainAspectRatio: false,
+  aspectRatio: 1,
+  layout: {
+    padding: {
+      top: 10, // chart ke upar extra space; adjust karo 20-40 px
+    },
+  },
     scales: {
       x: {
         ticks: {
@@ -71,9 +64,11 @@ export function LineGraph({ lineGraphData, setStartDate, setEndDate }) {
         },
       },
       y: {
-        stacked: true,
         beginAtZero: true,
+        min: 0,          // ⭐ Start at 0
+        max: 40,         // ⭐ End at 40
         ticks: {
+          stepSize: 5,   // ⭐ 0,5,10...40
           color: "#ffffff",
         },
       },
@@ -81,29 +76,33 @@ export function LineGraph({ lineGraphData, setStartDate, setEndDate }) {
     plugins: {
       legend: {
         position: "top",
-        align: "start",
+        align: "center",
         labels: {
           usePointStyle: true,
           color: "#ffffff",
         },
+        padding: {
+    top: 20,
+    bottom: 20,
+       // ⭐ legend ko aur upar push kar diya
+  },
       },
       title: {
         display: true,
         color: "#ffffff",
       },
     },
-  
   };
-    const dateRef = useRef(null);
+
+  const dateRef = useRef(null);
 
   const handleIconClick = () => {
     if (dateRef.current?.showPicker) {
-      dateRef.current.showPicker(); // 👈 ye date picker open karega
+      dateRef.current.showPicker();
     } else {
-      dateRef.current.click(); // fallback (for browsers without showPicker)
+      dateRef.current.click();
     }
   };
-
 
   return (
     <div className="bg-[#000000] mt-3 backdrop-blur-[50px] p-5 h-full relative rounded-[15px]">
@@ -111,30 +110,30 @@ export function LineGraph({ lineGraphData, setStartDate, setEndDate }) {
         <p className="text-white text-[23.26px] font-[600]">
           Active Users Overview
         </p>
+
         <div className="flex items-center gap-2">
           {/* Start Date */}
           <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-[10px]">
             <div className="text-white text-[11.63px] font-[500] flex items-center justify-between w-[148px] h-[34px] bg-[#000000] rounded-[10px] p-2">
               <label htmlFor="date" className="flex items-center cursor-pointer">
-      <input
-        ref={dateRef}
-        name="date"
-        id="date"
-        type="date"
-        className="bg-transparent text-white outline-none"
-        onChange={(e) => setStartDate(e.target.value)}
-      />
-      <span onClick={handleIconClick}>
-        <img src={calender} alt="calendar" className="w-4 ml-2 cursor-pointer" />
-      </span>
-    </label>
+                <input
+                  ref={dateRef}
+                  name="date"
+                  id="date"
+                  type="date"
+                  className="bg-transparent text-white outline-none"
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+                <span onClick={handleIconClick}>
+                  <img src={calender} alt="calendar" className="w-4 ml-2 cursor-pointer" />
+                </span>
+              </label>
             </div>
           </div>
 
           {/* End Date */}
           <div className="bg-[linear-gradient(96deg,#505050_10%,#1F1F1F_100%)] p-[1px] rounded-[10px]">
             <div className="text-white text-[11.63px] font-[500] flex items-center justify-between w-[148px] h-[34px] bg-[#000000] rounded-[10px] p-2">
-              
               <input
                 type="date"
                 className="bg-transparent"
@@ -155,6 +154,3 @@ export function LineGraph({ lineGraphData, setStartDate, setEndDate }) {
     </div>
   );
 }
-
-
-

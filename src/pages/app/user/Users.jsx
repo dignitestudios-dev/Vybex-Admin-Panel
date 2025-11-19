@@ -38,7 +38,15 @@ const Users = () => {
                     
                     </div>
       </div>
-      {loading ? <UserTableSkeleton/> : ( <UsersList users={users} />)}
+      {loading ? (
+          <UserTableSkeleton/>
+      ) : users?.length > 0 ? (
+          <UsersList users={users} />
+      ) : (
+          <div className="flex items-center justify-center h-64">
+              <p className="text-gray-400 text-lg">No users found.</p>
+          </div>
+      )}
       <div className="mt-4 flex justify-end">
       <Pagination pagnition={pagnition} setPageNo={setPageNo} />
       </div>

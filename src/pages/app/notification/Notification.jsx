@@ -38,7 +38,15 @@ export default function Notification() {
                 
             </div>
             </div>
-            {loading ? <NotificationSkeleton/> : ( <NotificationList notification={notification}/>)}
+            {loading ? (
+                <NotificationSkeleton/>
+            ) : notification?.length > 0 ? (
+                <NotificationList notification={notification}/>
+            ) : (
+                <div className="flex items-center justify-center h-64">
+                    <p className="text-gray-400 text-lg">Nothing to display here yet.</p>
+                </div>
+            )}
             <div className="mt-4 flex justify-end">
             <Pagination pagnition={pagnition} setPageNo={setPageNo} />
             </div>

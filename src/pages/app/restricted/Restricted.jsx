@@ -52,7 +52,15 @@ export default function Restricted() {
             
             </div>
             </div>
-            {loading ? <RestrictedSkeleton/> : ( <RestrictedList  restricted={restricted} UnblockUser={UnblockUser}/>)}
+            {loading ? (
+                <RestrictedSkeleton/>
+            ) : restricted?.length > 0 ? (
+                <RestrictedList restricted={restricted} UnblockUser={UnblockUser}/>
+            ) : (
+                <div className="flex items-center justify-center h-64">
+                    <p className="text-gray-400 text-lg">No restricted users found.</p>
+                </div>
+            )}
             <div className="mt-4 flex justify-end">
             <Pagination pagnition={pagnition} setPageNo={setPageNo} />
             </div>

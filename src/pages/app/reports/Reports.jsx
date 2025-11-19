@@ -54,7 +54,15 @@ const Reports = () => {
         
         </div>
         </div>
-        {loading ? <ReportsSkeleton/> : ( <ReportList reports={reports} blockUser={blockUser}/>)}
+        {loading ? (
+            <ReportsSkeleton/>
+        ) : reports?.length > 0 ? (
+            <ReportList reports={reports} blockUser={blockUser}/>
+        ) : (
+            <div className="flex items-center justify-center h-64">
+                <p className="text-gray-400 text-lg">No reports found.</p>
+            </div>
+        )}
         <div className="mt-4 flex justify-end">
         <Pagination pagnition={pagnition} setPageNo={setPageNo} />
         </div>

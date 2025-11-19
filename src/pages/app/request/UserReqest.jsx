@@ -34,7 +34,15 @@ useEffect(() => {
             <div>
                 <h1 className="text-[32px] font-[600] text-white">Withdraw Request</h1>
             </div>
-            {loading ? <UserTableSkeleton/> : ( <UserRequestList userRequest={userRequest}  setShowRequestDetailModal={setShowRequestDetailModal}/>)}
+            {loading ? (
+                <UserTableSkeleton/>
+            ) : userRequest?.length > 0 ? (
+                <UserRequestList userRequest={userRequest} setShowRequestDetailModal={setShowRequestDetailModal}/>
+            ) : (
+                <div className="flex items-center justify-center h-64">
+                    <p className="text-gray-400 text-lg">No requests found.</p>
+                </div>
+            )}
                 
            
             <RequestDetailModal

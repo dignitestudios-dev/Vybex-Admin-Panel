@@ -64,7 +64,15 @@ const Revenue = () => {
           </div>
         </div>
       </div>
-      {loading ? <RevenueSkeleton/> : ( <RevenueList revenue={revenue} />)}
+      {loading ? (
+          <RevenueSkeleton/>
+      ) : revenue?.length > 0 ? (
+          <RevenueList revenue={revenue} />
+      ) : (
+          <div className="flex items-center justify-center h-64">
+              <p className="text-gray-400 text-lg">No revenue data found.</p>
+          </div>
+      )}
       <div className="mt-4 flex justify-end">
       <Pagination pagnition={pagnition} setPageNo={setPageNo} />
       </div>
